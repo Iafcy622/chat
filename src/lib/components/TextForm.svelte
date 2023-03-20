@@ -1,4 +1,6 @@
 <script>
+    import { enhance } from '$app/forms';
+
     let message = "";
 
     const onInput = (e) => {
@@ -24,7 +26,7 @@
 
 <form
     class="input mx-auto absolute bottom-6 left-0 right-0 w-3/4 flex items-center"
-    method="POST"
+    method="POST" use:enhance
 >
     <textarea
         name="message-input"
