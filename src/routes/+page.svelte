@@ -1,14 +1,11 @@
 <script>
-    import Message from "$lib/components/Message.svelte";
+    import Chat from "$lib/Chat.svelte";
+    import Nav from "$lib/Nav.svelte";
+
+    export let data;
 </script>
 
-<main>
-    <Message message={"Hi"} role={"AI"} />
-    <Message message={"Hi"} role={"User"} />
-    <Message message={"Hi"} role={"AI"} />
-    <Message
-        message={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, dolore? Alias consequuntur inventore nostrum maiores earum itaque ab eveniet rerum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, dolore? Alias consequuntur inventore nostrum maiores earum itaque ab eveniet rerum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, dolore? Alias consequuntur inventore nostrum maiores earum itaque ab eveniet rerum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, dolore? Alias consequuntur inventore nostrum maiores earum itaque ab eveniet rerum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, dolore? Alias consequuntur inventore nostrum maiores earum itaque ab eveniet rerum.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, dolore? Alias consequuntur inventore nostrum maiores earum itaque ab eveniet rerum."}
-        role={"User"}
-    />
-    <Message message={"Hi"} role={"AI"} />
+<main class="h-screen overflow-hidden flex flex-col lg:grid lg:grid-cols-6">
+    <Nav />
+    <Chat messages={data.messages} />
 </main>
