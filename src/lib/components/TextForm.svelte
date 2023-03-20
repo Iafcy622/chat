@@ -21,7 +21,7 @@
         message = "";
     };
 </script>
-<!-- on:submit|preventDefault={handleSubmit} -->
+
 <form
     class="input mx-auto absolute bottom-6 left-0 right-0 w-3/4 flex items-center"
     method="POST"
@@ -32,7 +32,7 @@
         bind:value={message}
         on:input={onInput}
         placeholder="Input here"
-        class="grow bg-[#282b30]
+        class="grow dark:bg-[#282b30] bg-[#adb5bd] placeholder-[#495057] dark:placeholder-[#6C757D]
                 resize-none overflow-hidden max-h-full outline-none py-2 px-4 h-10 rounded-lg"
     />
     <button class="w-8 h-8 ml-3 self-end mb-1" type="submit">

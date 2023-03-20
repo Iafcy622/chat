@@ -1,16 +1,27 @@
 <script>
     let navOpened = false;
+    let darkMode = true;
     let chats = [
         { name: "Chat 1", id: 1, active: true },
         { name: "Chat 2", id: 2, active: false },
     ];
+
+    const toggleDarkmode = () => {
+        darkMode = !darkMode;
+
+        darkMode
+            ? document.documentElement.classList.add('dark')
+            : document.documentElement.classList.remove('dark');
+    }
 </script>
 
 <header
-    class="bg-[#282b30] flex px-5 py-3 items-center drop-shadow-xl lg:hidden"
+    class="dark:bg-[#282b30] bg-[#adb5bd]
+        flex px-5 py-3 items-center drop-shadow-xl lg:hidden
+    "
 >
     <button
-        class="mr-6 hover:bg-[#36393e] p-1 rounded-lg"
+        class="mr-6 dark:hover:bg-[#36393e] hover:bg-[#CED4DA] p-1 rounded-lg"
         on:click={() => (navOpened = !navOpened)}
     >
         <svg
@@ -33,13 +44,13 @@
 <div
     class="absolute lg:hidden
         {navOpened
-        ? 'block w-screen h-screen bg-stone-900 opacity-30 z-10 blur-sm'
+        ? 'block w-screen h-screen bg-stone-900 opacity-30 z-10 blur-md'
         : 'hidden'}
     "
     on:click={() => (navOpened = false)}
 />
 <nav
-    class="bg-[#1e2124] col-span-1 flex-col h-full flex
+    class="dark:bg-[#1e2124] bg-[#ADB5BD] col-span-1 flex-col h-full flex
         absolute -translate-x-full z-10
         {navOpened
         ? 'translate-x-0 opacity-100'
@@ -69,13 +80,16 @@
             </svg>
         </button>
     </h1>
+
+    <!-- Chat list -->
     <ul class="grow">
         {#each chats as chat (chat.id)}
             <li>
                 <a
                     href="/"
-                    class="grid gap-4 grid-cols-6 items-center w-full py-2 px-4 hover:bg-[#282b30]
-                    {chat.active ? 'bg-[#282b30] hover:bg-[#36393e]' : ''}"
+                    class="grid gap-4 grid-cols-6 items-center w-full py-2 px-4 
+                        dark:hover:bg-[#282b30] hover:bg-[#CED4DA]
+                        {chat.active ? 'dark:bg-[#282b30] bg-[#6C757D] dark:hover:bg-[#36393e] hover:bg-[#6C757D] text-[#CED4DA] hover:text-[#212529] dark:hover:text-[#CED4DA]' : ''}"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -96,9 +110,13 @@
             </li>
         {/each}
     </ul>
+
+    <!-- Nav -->
     <ul>
         <li
-            class="grid grid-cols-6 items-center w-full py-2 px-4 hover:bg-[#282b30]"
+            class="grid grid-cols-6 items-center w-full py-2 px-4
+                dark:hover:bg-[#282b30] hover:bg-[#CED4DA]
+            "
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +136,10 @@
             <p class="truncate col-span-5">Account</p>
         </li>
         <li
-            class="grid grid-cols-6 items-center w-full py-2 px-4 hover:bg-[#282b30]"
+            class="grid grid-cols-6 items-center w-full py-2 px-4
+                dark:hover:bg-[#282b30] hover:bg-[#CED4DA]
+            "
+            on:click={toggleDarkmode}
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"

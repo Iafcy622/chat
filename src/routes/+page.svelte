@@ -5,7 +5,7 @@
     export let data;
 </script>
 
-<main class="h-screen overflow-hidden flex flex-col lg:grid lg:grid-cols-6">
+<main class="max-h-screen overflow-hidden flex flex-col lg:grid lg:grid-cols-6">
     <Nav />
     <Chat messages={data.messages} />
 </main>
