@@ -1,20 +1,21 @@
 <script>
+    import Modal from "$lib/components/Modal.svelte";
+    import Settings from "$lib/Settings.svelte";
+
     let navOpened = false;
     let darkMode = true;
+    let modals = {
+        settings: false,
+        account: false
+    }
+
     let chats = [
         { name: "Chat 1", id: 1, active: true },
         { name: "Chat 2", id: 2, active: false },
     ];
-
-    const toggleDarkmode = () => {
-        darkMode = !darkMode;
-
-        darkMode
-            ? document.documentElement.classList.add('dark')
-            : document.documentElement.classList.remove('dark');
-    }
 </script>
 
+<!-- Header + Hamburgar for mobile -->
 <header
     class="dark:bg-[#282b30] bg-[#adb5bd]
         flex px-5 py-3 items-center drop-shadow-xl lg:hidden
@@ -41,7 +42,9 @@
     </button>
     <h1>{chats.filter((chat) => chat.active)[0].name}</h1>
 </header>
-<div
+
+<!-- bg blur -->
+<button
     class="absolute lg:hidden
         {navOpened
         ? 'block w-screen h-screen bg-stone-900 opacity-30 z-10 blur-md'
@@ -49,6 +52,7 @@
     "
     on:click={() => (navOpened = false)}
 />
+
 <nav
     class="dark:bg-[#1e2124] bg-[#ADB5BD] col-span-1 flex-col h-full flex
         absolute -translate-x-full z-10
@@ -89,7 +93,9 @@
                     href="/"
                     class="grid gap-4 grid-cols-6 items-center w-full py-2 px-4 
                         dark:hover:bg-[#282b30] hover:bg-[#CED4DA]
-                        {chat.active ? 'dark:bg-[#282b30] bg-[#6C757D] dark:hover:bg-[#36393e] hover:bg-[#6C757D] text-[#CED4DA] hover:text-[#212529] dark:hover:text-[#CED4DA]' : ''}"
+                        {chat.active
+                        ? 'dark:bg-[#282b30] bg-[#6C757D] dark:hover:bg-[#36393e] hover:bg-[#6C757D] text-[#CED4DA] hover:text-[#212529] dark:hover:text-[#CED4DA]'
+                        : ''}"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +118,7 @@
     </ul>
 
     <!-- Nav -->
-    <ul>
+    <ul class="mb-3">
         <li
             class="grid grid-cols-6 items-center w-full py-2 px-4
                 dark:hover:bg-[#282b30] hover:bg-[#CED4DA]
@@ -135,32 +141,43 @@
 
             <p class="truncate col-span-5">Account</p>
         </li>
-        <li
-            class="grid grid-cols-6 items-center w-full py-2 px-4
-                dark:hover:bg-[#282b30] hover:bg-[#CED4DA]
-            "
-            on:click={toggleDarkmode}
-        >
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6 col-span-1"
+        <li>
+            <button
+                class="grid grid-cols-6 items-center w-full py-2 px-4 
+                    dark:hover:bg-[#282b30] hover:bg-[#CED4DA]
+                "
+                on:click={() => modals.settings = true}
             >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"
-                />
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-            </svg>
-            <p class="truncate col-span-5">Settings</p>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6 col-span-1"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"
+                    />
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                </svg>
+                <p class="truncate col-span-5 text-left">Settings</p>
+            </button>
         </li>
     </ul>
 </nav>
+
+
+<Modal
+    title={"Settings"}
+    isOpened={modals.settings} 
+    on:closePopup={() => modals.settings = false}
+>
+    <Settings />
+</Modal>
